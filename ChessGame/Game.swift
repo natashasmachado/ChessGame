@@ -34,6 +34,18 @@ class Game {
   //    board.display()
   //  }
   //  print("\(board.currentPlayer.antiColor().rawValue) wins!")
+      if board.whiteKing == nil {
+          //Game over, Black wins
+          print("Game over - Black won!")
+          board.gameOver = true
+          return
+      }
+      if board.blackKing == nil {
+          //Game over, White wins
+          print("Game over - White won!")
+          board.gameOver = true
+          return
+      }
   }
   
 }

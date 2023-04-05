@@ -10,16 +10,14 @@ import Foundation
 class Piece {
   
   let color: Color
-  let symbol: String
   let type: PieceType
   
-  init(color: Color, symbol: String, type: PieceType) {
+  init(color: Color, type: PieceType) {
     self.color = color
-    self.symbol = symbol
     self.type = type
   }
   
-  func move(from start: Position, to end: Position, board: Board) -> Bool {
+  func canMove(from start: Position, to end: Position, board: [[Piece?]]) -> Bool {
     return false
   }
   

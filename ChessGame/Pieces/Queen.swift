@@ -9,11 +9,13 @@ import Foundation
 
 class Queen: Piece {
   
-  init(color: Color) {
-    super.init(color: color, symbol: color == .white ? "♕" : "♛", type: .queen)
+  override init(color: Color, type: PieceType) {
+    super.init(color: color, type: .queen)
   }
   
-  override func move(from start: Position, to end: Position, board: Board) -> Bool {
-    return false
+  override func canMove(from start: Position, to end: Position, board: [[Piece?]]) -> Bool {
+    let rowDiff = abs(end.row - start.row)
+    let colDiff = abs(end.col - start.col)
+    return (rowDiff == colDiff) || (rowDiff == 0) || (colDiff == 0)
   }
 }

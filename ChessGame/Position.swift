@@ -9,10 +9,10 @@ import Foundation
 
 struct Position {
   let row: Int
-  let column: Int
+  let col: Int
   
-  init(_ row: Int, _ column: Int) {
+  init(_ row: Int, _ col: Int) {
     self.row = row
-    self.column = column
+    self.col = col
   }
 }

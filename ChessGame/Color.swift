@@ -7,7 +7,12 @@
 
 import Foundation
 
-enum Color {
-  case white
-  case black
+enum Color: String {
+  case white = "White"
+  case black = "Black"
+  
+  func antiColor() -> Color {
+    return self == .white ? .black : .white
+  }
+  
 }

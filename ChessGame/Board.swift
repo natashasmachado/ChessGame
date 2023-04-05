@@ -71,4 +71,40 @@ class Board {
     }
     print("  a b c d e f g h")
   }
+  
+  func help() {
+    print("Please enter your command:")
+    print("-> Type 'help' for help")
+    print("-> Type 'board' to see the board again")
+    print("-> Type 'resign' to resign")
+    print("-> Type 'moves' to list all possible moves")
+    print("-> Type a square (e.g. b1, e2) to list possible moves for that square")
+    print("-> Type UCI (e.g. b1c3, e7e8q) to make a move")
+    
+    if let input = readLine() {
+      switch input {
+      case "help":
+        print(help())
+        break
+      case "board":
+        //
+        break
+      case "resign":
+        
+        break
+      case "moves":
+        
+        break
+      case "square":
+        
+        break
+      case "uci" :
+        
+        break
+      default:
+        print("Invalid command")
+        break
+      }
+    }
+  }
 }

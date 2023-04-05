@@ -11,8 +11,8 @@ class Pawn: Piece {
   
   var hasMoved: Bool = false
   
-  override init(color: Color, type: PieceType) {
-    super.init(color: color, type: .pawn)
+    override init(color: Color, type: PieceType, position: (Int, Int)) {
+    super.init(color: color, type: .pawn, position: position)
   }
   
   override func canMove(from start: Position, to end: Position, board: [[Piece?]]) -> Bool {

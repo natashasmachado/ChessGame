@@ -17,27 +17,27 @@ class Board {
   }
   
   func gameBoard() {
-    board[0][0] = Piece(color: .white, type: .rook)
-    board[0][1] = Piece(color: .white, type: .knight)
-    board[0][2] = Piece(color: .white, type: .bishop)
-    board[0][3] = Piece(color: .white, type: .queen)
-    board[0][4] = Piece(color: .white, type: .king)
-    board[0][5] = Piece(color: .white, type: .bishop)
-    board[0][6] = Piece(color: .white, type: .knight)
-    board[0][7] = Piece(color: .white, type: .rook)
+    board[0][0] = Piece(color: .white, type: .rook, position: (0,0))
+    board[0][1] = Piece(color: .white, type: .knight, position: (0,1))
+    board[0][2] = Piece(color: .white, type: .bishop, position: (0,2))
+    board[0][3] = Piece(color: .white, type: .queen, position: (0,3))
+    board[0][4] = Piece(color: .white, type: .king, position: (0,4))
+    board[0][5] = Piece(color: .white, type: .bishop, position: (0,5))
+    board[0][6] = Piece(color: .white, type: .knight, position: (0,6))
+    board[0][7] = Piece(color: .white, type: .rook, position: (0,7))
     for i in 0...7 {
-      board[1][i] = Piece(color: .white, type: .pawn)
+      board[1][i] = Piece(color: .white, type: .pawn, position: (1,i))
     }
-    board[7][0] = Piece(color: .black, type: .rook)
-    board[7][1] = Piece(color: .black, type: .knight)
-    board[7][2] = Piece(color: .black, type: .bishop)
-    board[7][3] = Piece(color: .black, type: .queen)
-    board[7][4] = Piece(color: .black, type: .king)
-    board[7][5] = Piece(color: .black, type: .bishop)
-    board[7][6] = Piece(color: .black, type: .knight)
-    board[7][7] = Piece(color: .black, type: .rook)
+    board[7][0] = Piece(color: .black, type: .rook, position: (7,0))
+    board[7][1] = Piece(color: .black, type: .knight, position: (7,1))
+    board[7][2] = Piece(color: .black, type: .bishop, position: (7,2))
+    board[7][3] = Piece(color: .black, type: .queen, position: (7,3))
+    board[7][4] = Piece(color: .black, type: .king, position: (7,4))
+    board[7][5] = Piece(color: .black, type: .bishop, position: (7,5))
+    board[7][6] = Piece(color: .black, type: .knight, position: (7,6))
+    board[7][7] = Piece(color: .black, type: .rook, position: (7,7))
     for i in 0...7 {
-      board[6][i] = Piece(color: .black, type: .pawn)
+      board[6][i] = Piece(color: .black, type: .pawn, position: (6,i))
     }
   }
   
@@ -87,10 +87,10 @@ class Board {
         print(help())
         break
       case "board":
-        //
+        display()
         break
       case "resign":
-        
+          print("Game over - \(currentPlayer.antiColor().rawValue) won by resignation")
         break
       case "moves":
         

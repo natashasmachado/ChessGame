@@ -9,8 +9,8 @@ import Foundation
 
 class King: Piece {
   
-  override init(color: Color, type: PieceType) {
-    super.init(color: color, type: .king)
+  override init(color: Color, type: PieceType, position: (Int, Int)) {
+    super.init(color: color, type: .king, position: position)
   }
   
   override func canMove(from start: Position, to end: Position, board: [[Piece?]]) -> Bool {

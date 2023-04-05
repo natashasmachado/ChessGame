@@ -9,8 +9,8 @@ import Foundation
 
 class Bishop: Piece {
   
-  override init(color: Color, type: PieceType) {
-    super.init(color: color, type: .bishop)
+  override init(color: Color, type: PieceType, position: (Int, Int)) {
+    super.init(color: color, type: .bishop, position: position)
   }
   
   override func canMove(from start: Position, to end: Position, board: [[Piece?]]) -> Bool {

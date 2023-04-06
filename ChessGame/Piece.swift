@@ -19,13 +19,4 @@ class Piece {
     self.position = position
   }
   
-  func canMove(from start: Position, to end: Position, board: [[Piece?]]) -> Bool {
-    return false
-  }
-  
-    func getMoves() -> [(y: Int, x: Int)] {
-        var moves: [(Int, Int)] = []
-        
-        return moves
-    }
 }

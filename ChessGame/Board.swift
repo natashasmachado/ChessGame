@@ -14,12 +14,6 @@ class Board {
   var typeOfPiece: Piece
   var passant: Position? = nil
   
-  var whiteKing: Piece? = nil
-  var whitePieces: [Piece] = []
-  var blackKing: Piece? = nil
-  var blackPieces: [Piece] = []
-  
-  
   init() {
     gameBoard()
   }
@@ -30,7 +24,6 @@ class Board {
     board[0][2] = Piece(color: .white, type: .bishop, position: (0,2))
     board[0][3] = Piece(color: .white, type: .queen, position: (0,3))
     board[0][4] = Piece(color: .white, type: .king, position: (0,4))
-    whiteKing = board[0][4]
     board[0][5] = Piece(color: .white, type: .bishop, position: (0,5))
     board[0][6] = Piece(color: .white, type: .knight, position: (0,6))
     board[0][7] = Piece(color: .white, type: .rook, position: (0,7))
@@ -42,7 +35,6 @@ class Board {
     board[7][2] = Piece(color: .black, type: .bishop, position: (7,2))
     board[7][3] = Piece(color: .black, type: .queen, position: (7,3))
     board[7][4] = Piece(color: .black, type: .king, position: (7,4))
-    blackKing = board[7][4]
     board[7][5] = Piece(color: .black, type: .bishop, position: (7,5))
     board[7][6] = Piece(color: .black, type: .knight, position: (7,6))
     board[7][7] = Piece(color: .black, type: .rook, position: (7,7))
@@ -83,8 +75,14 @@ class Board {
   }
   
   func movePiece(move: Move) {
+    
     guard let movingPiece = board[move.start.row][move.start.col] else {
       print("No piece found at the starting position.")
+      return
+    }
+    
+    guard isMoveValid(piece: movingPiece, move: move) else {
+      print("Invalid move for the selected piece.")
       return
     }
     
@@ -101,6 +99,53 @@ class Board {
     board[move.end.row][move.end.col] = movingPiece
     movingPiece.position = (move.end.row,move.end.col)
     board[move.start.row][move.start.col] = nil
+  }
+  
+  private func isMoveValid(piece: Piece, move: Move) -> Bool {
+    let rowDiff = abs(move.end.row - move.start.row)
+    let colDiff = abs(move.end.col - move.start.col)
+    
+    switch piece.type {
+    case .king:
+      if rowDiff <= 1 && colDiff <= 1 {
+        return true
+      } else {
+        return false
+      }
+      
+    case .queen:
+      return (rowDiff == colDiff) || (rowDiff == 0) || (colDiff == 0)
+      
+    case .rook:
+      return (rowDiff == 0) || (colDiff == 0)
+      
+    case .bishop:
+      return rowDiff == colDiff
+      
+    case .knight:
+      return (rowDiff == 2 && colDiff == 1) || (rowDiff == 1 && colDiff == 2)
+      
+    case .pawn:
+      let direction = piece.color == .white ? 1 : -1
+      let rowMove = move.end.row - move.start.row
+      let startingRow = piece.color == .white ? 1 : 6
+      
+      if colDiff == 0 {
+        if rowMove == direction {
+          return board[move.end.row][move.end.col] == nil
+        } else if rowMove == 2 * direction && move.start.row == startingRow {
+          return board[move.end.row][move.end.col] == nil && board[move.start.row + direction][move.start.col] == nil
+        }
+      } else if colDiff == 1 && rowMove == direction {
+        if let targetPiece = board[move.end.row][move.end.col] {
+          return targetPiece.color != piece.color
+        } else if let target = passant, move.end == target {
+          return true
+        }
+      }
+      
+      return false
+    }
   }
   
   private func handleCastling(move: Move) {

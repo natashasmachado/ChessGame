@@ -13,7 +13,7 @@ class Piece {
   let type: PieceType
   var position: (Int, Int)
   
-    init(color: Color, type: PieceType, position: (Int,Int)) {
+  init(color: Color, type: PieceType, position: (Int,Int)) {
     self.color = color
     self.type = type
     self.position = position

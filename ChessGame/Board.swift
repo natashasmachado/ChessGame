@@ -9,7 +9,6 @@ import Foundation
 
 class Board {
   var board: [[Piece?]] = Array(repeating: Array(repeating: nil, count: 8), count: 8)
-  var currentPlayer: Color = .white
   var gameOver: Bool = false
   var passant: Position? = nil
   
@@ -47,20 +46,20 @@ class Board {
     for i in 0..<8 {
       print("\(8-i) ", terminator: "")
       for j in 0..<8 {
-        if let piece = board[i][j] {
+        if let piece = board[7-i][j] {
           switch piece.type {
           case .king:
-            print(piece.color == .white ? "♔" : "♚", terminator: "")
+            print(piece.color != .white ? "♔" : "♚", terminator: "")
           case .queen:
-            print(piece.color == .white ? "♕" : "♛", terminator: "")
+            print(piece.color != .white ? "♕" : "♛", terminator: "")
           case .bishop:
-            print(piece.color == .white ? "♗" : "♝", terminator: "")
+            print(piece.color != .white ? "♗" : "♝", terminator: "")
           case .knight:
-            print(piece.color == .white ? "♘" : "♞", terminator: "")
+            print(piece.color != .white ? "♘" : "♞", terminator: "")
           case .rook:
-            print(piece.color == .white ? "♖" : "♜", terminator: "")
+            print(piece.color != .white ? "♖" : "♜", terminator: "")
           case .pawn:
-            print(piece.color == .white ? "♙" : "♟︎", terminator: "")
+            print(piece.color != .white ? "♙" : "♟︎", terminator: "")
             
           }
         } else {
@@ -74,7 +73,6 @@ class Board {
   }
   
   func movePiece(move: Move) {
-    
     guard let movingPiece = board[move.start.row][move.start.col] else {
       print("No piece found at the starting position.")
       return
@@ -147,7 +145,7 @@ class Board {
     }
   }
   
-   func handleCastling(move: Move) {
+  func handleCastling(move: Move) {
     guard let king = board[move.start.row][move.start.col] else {
       print("No king found at the starting position.")
       return
@@ -171,7 +169,7 @@ class Board {
     board[move.start.row][rookStartCol] = nil
   }
   
-   func handlePawnPromotion(move: Move) {
+  func handlePawnPromotion(move: Move) {
     guard let pawn = board[move.start.row][move.start.col] else {
       print("No pawn found at the starting position.")
       return
@@ -179,12 +177,11 @@ class Board {
     
     board[move.start.row][move.start.col] = nil
     
-    
     let promotedPiece = Piece(color: pawn.color, type: .queen, position: (move.end.row,move.end.col))
     board[move.end.row][move.end.col] = promotedPiece
   }
   
-   func handleEnPassant(move: Move) {
+  func handleEnPassant(move: Move) {
     guard let capturingPawn = board[move.start.row][move.start.col] else {
       print("No pawn found at the starting position.")
       return

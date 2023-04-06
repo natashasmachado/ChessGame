@@ -13,7 +13,7 @@ struct Position {
 }
 
 extension Position: Equatable {
-    static func ==(lhs: Position, rhs: Position) -> Bool {
-        return lhs.row == rhs.row && lhs.col == rhs.col
-    }
+  static func ==(lhs: Position, rhs: Position) -> Bool {
+    return lhs.row == rhs.row && lhs.col == rhs.col
+  }
 }

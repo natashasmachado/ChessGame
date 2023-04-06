@@ -11,7 +11,7 @@ class Pawn: Piece {
   
   var hasMoved: Bool = false
   
-    override init(color: Color, type: PieceType, position: (Int, Int)) {
+  override init(color: Color, type: PieceType, position: (Int, Int)) {
     super.init(color: color, type: .pawn, position: position)
   }
   

@@ -49,17 +49,17 @@ class Board {
         if let piece = board[7-i][j] {
           switch piece.type {
           case .king:
-            print(piece.color != .white ? "♔" : "♚", terminator: "")
+            print(piece.color == .white ? "♔" : "♚", terminator: "")
           case .queen:
-            print(piece.color != .white ? "♕" : "♛", terminator: "")
+            print(piece.color == .white ? "♕" : "♛", terminator: "")
           case .bishop:
-            print(piece.color != .white ? "♗" : "♝", terminator: "")
+            print(piece.color == .white ? "♗" : "♝", terminator: "")
           case .knight:
-            print(piece.color != .white ? "♘" : "♞", terminator: "")
+            print(piece.color == .white ? "♘" : "♞", terminator: "")
           case .rook:
-            print(piece.color != .white ? "♖" : "♜", terminator: "")
+            print(piece.color == .white ? "♖" : "♜", terminator: "")
           case .pawn:
-            print(piece.color != .white ? "♙" : "♟︎", terminator: "")
+            print(piece.color == .white ? "♙" : "♟︎", terminator: "")
             
           }
         } else {
@@ -73,6 +73,7 @@ class Board {
   }
   
   func movePiece(move: Move) {
+    
     guard let movingPiece = board[move.start.row][move.start.col] else {
       print("No piece found at the starting position.")
       return
@@ -93,9 +94,10 @@ class Board {
       }
     }
     
+    board[move.start.row][move.start.col] = nil
     board[move.end.row][move.end.col] = movingPiece
     movingPiece.position = (move.end.row,move.end.col)
-    board[move.start.row][move.start.col] = nil
+    
   }
   
   func isMoveValid(piece: Piece, move: Move) -> Bool {

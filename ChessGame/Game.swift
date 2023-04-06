@@ -9,44 +9,52 @@ import Foundation
 
 class Game {
   let board: Board
+  let moving: Move
   
   init() {
     board = Board()
   }
-  // the function does not work correctly, i ll look tomorrow
-  func start() {
-    board.display()
-  //  while !gameOver {
-  //    var i: Int = 1
-  //    print("\n [type 'help' for help] \(board.currentPlayer.rawValue) \(i):")
-  //    var validMove = false
-  //    while !validMove {
-  //      let input = readLine()!
-  //      let move = parseMove(input: input)
-  //      if move == nil {
-  //        print("Invalid input.")
-  //      } else if !board.movePiece(from: move!.from, to: move!.to) {
-  //        print("Invalid move.")
-  //      } else {
-  //        validMove = true
-  //      }
-  //    }
-  //    board.display()
-  //  }
-  //  print("\(board.currentPlayer.antiColor().rawValue) wins!")
-      if board.whiteKing == nil {
-          //Game over, Black wins
-          print("Game over - Black won!")
-          board.gameOver = true
-          return
-      }
-      if board.blackKing == nil {
-          //Game over, White wins
-          print("Game over - White won!")
-          board.gameOver = true
-          return
-      }
+  
+  func help() {
+    print("-> Type 'help' for help")
+    print("-> Type 'board' to see the board again")
+    print("-> Type 'resign' to resign")
+    print("-> Type 'moves' to list all possible moves")
+    print("-> Type a square (e.g. b1, e2) to list possible moves for that square")
+    print("-> Type UCI (e.g. b1c3, e7e8q) to make a move")
   }
   
+  // the function does not work correctly, i ll look tomorrow
+  func start() {
+    var i: Int = 1
+    board.display()
+    print("[type 'help' for help] \(board.currentPlayer.rawValue) (\(i)):")
+    if let input = readLine() {
+      let letter = input.components(separatedBy: [" "])
+      let piecePosition = input.split(separator: " ")
+      if input=="help"{
+        print(help())
+      }else if input=="board"
+      {
+        board.display()
+      }else if input=="resign"
+      {
+        print("Game over - \(board.currentPlayer.antiColor().rawValue) won by resignation")
+        board.gameOver = true
+      }else {
+        if piecePosition.count == 2 {
+          let start = String(piecePosition[0])
+          let end = String(piecePosition[1])
+        }else if piecePosition.count == 4 {
+          // We should handle this part
+         // board.movePiece(move)
+        }
+        
+      }
+    
+    }
+  }
 }
+
+
 

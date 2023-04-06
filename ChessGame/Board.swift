@@ -11,12 +11,14 @@ class Board {
   var board: [[Piece?]] = Array(repeating: Array(repeating: nil, count: 8), count: 8)
   var currentPlayer: Color = .white
   var gameOver: Bool = false
-    
-  var whiteKing: King? = nil
+  var typeOfPiece: Piece
+  var passant: Position? = nil
+  
+  var whiteKing: Piece? = nil
   var whitePieces: [Piece] = []
-  var blackKing: King? = nil
+  var blackKing: Piece? = nil
   var blackPieces: [Piece] = []
-    
+  
   
   init() {
     gameBoard()
@@ -34,8 +36,6 @@ class Board {
     board[0][7] = Piece(color: .white, type: .rook, position: (0,7))
     for i in 0...7 {
       board[1][i] = Piece(color: .white, type: .pawn, position: (1,i))
-      whitePieces.append(board[1][i])
-      whitePieces.append(board[0][i])
     }
     board[7][0] = Piece(color: .black, type: .rook, position: (7,0))
     board[7][1] = Piece(color: .black, type: .knight, position: (7,1))
@@ -48,8 +48,6 @@ class Board {
     board[7][7] = Piece(color: .black, type: .rook, position: (7,7))
     for i in 0...7 {
       board[6][i] = Piece(color: .black, type: .pawn, position: (6,i))
-        blackPieces.append(board[6][i])
-        blackPieces.append(board[7][i])
     }
   }
   
@@ -84,40 +82,81 @@ class Board {
     print("  a b c d e f g h")
   }
   
-  func help() {
-    print("Please enter your command:")
-    print("-> Type 'help' for help")
-    print("-> Type 'board' to see the board again")
-    print("-> Type 'resign' to resign")
-    print("-> Type 'moves' to list all possible moves")
-    print("-> Type a square (e.g. b1, e2) to list possible moves for that square")
-    print("-> Type UCI (e.g. b1c3, e7e8q) to make a move")
+  func movePiece(move: Move) {
+    guard let movingPiece = board[move.start.row][move.start.col] else {
+      print("No piece found at the starting position.")
+      return
+    }
     
-    if let input = readLine() {
-      switch input {
-      case "help":
-        print(help())
-        break
-      case "board":
-        display()
-        break
-      case "resign":
-          print("Game over - \(currentPlayer.antiColor().rawValue) won by resignation")
-          gameOver = true
-        break
-      case "moves":
-        
-        break
-      case "square":
-        
-        break
-      case "uci" :
-        
-        break
-      default:
-        print("Invalid command")
-        break
+    if movingPiece.type == .king && abs(move.end.col - move.start.col) == 2 {
+      handleCastling(move: move)
+    } else if movingPiece.type == .pawn {
+      if move.end.row == 0 || move.end.row == 7 {
+        handlePawnPromotion(move: move)
+      } else if let target = passant, move.end == target {
+        handleEnPassant(move: move)
       }
     }
+    
+    board[move.end.row][move.end.col] = movingPiece
+    movingPiece.position = (move.end.row,move.end.col)
+    board[move.start.row][move.start.col] = nil
   }
+  
+  private func handleCastling(move: Move) {
+    guard let king = board[move.start.row][move.start.col] else {
+      print("No king found at the starting position.")
+      return
+    }
+    
+    let isKingside = move.end.col > move.start.col
+    let rookStartCol = isKingside ? 7 : 0
+    let rookEndCol = isKingside ? 5 : 3
+    
+    guard let rook = board[move.start.row][rookStartCol] else {
+      print("No rook found for castling.")
+      return
+    }
+    
+    board[move.end.row][move.end.col] = king
+    king.position = (move.end.row,move.end.col)
+    board[move.start.row][move.start.col] = nil
+    
+    board[move.start.row][rookEndCol] = rook
+    rook.position = (move.start.row, rookEndCol)
+    board[move.start.row][rookStartCol] = nil
+  }
+  
+  private func handlePawnPromotion(move: Move) {
+    guard let pawn = board[move.start.row][move.start.col] else {
+      print("No pawn found at the starting position.")
+      return
+    }
+    
+    board[move.start.row][move.start.col] = nil
+    
+    
+    let promotedPiece = Piece(color: pawn.color, type: .queen, position: (move.end.row,move.end.col))
+    board[move.end.row][move.end.col] = promotedPiece
+  }
+  
+  private func handleEnPassant(move: Move) {
+    guard let capturingPawn = board[move.start.row][move.start.col] else {
+      print("No pawn found at the starting position.")
+      return
+    }
+    
+    guard let target = passant else {
+      print("No en passant target available.")
+      return
+    }
+    
+    board[move.end.row][move.end.col] = capturingPawn
+    capturingPawn.position = (move.end.row,move.end.col)
+    board[move.start.row][move.start.col] = nil
+    
+    let capturedPawnRow = capturingPawn.color == .white ? move.end.row - 1 : move.end.row + 1
+    board[capturedPawnRow][move.end.col] = nil
+  }
+  
 }

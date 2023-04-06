@@ -162,13 +162,14 @@ class Board {
       return
     }
     
+    board[move.start.row][move.start.col] = nil
     board[move.end.row][move.end.col] = king
     king.position = (move.end.row,move.end.col)
-    board[move.start.row][move.start.col] = nil
     
+    board[move.start.row][rookStartCol] = nil
     board[move.start.row][rookEndCol] = rook
     rook.position = (move.start.row, rookEndCol)
-    board[move.start.row][rookStartCol] = nil
+    
   }
   
   func handlePawnPromotion(move: Move) {
@@ -194,9 +195,10 @@ class Board {
       return
     }
     
+    board[move.start.row][move.start.col] = nil
     board[move.end.row][move.end.col] = capturingPawn
     capturingPawn.position = (move.end.row,move.end.col)
-    board[move.start.row][move.start.col] = nil
+    
     
     let capturedPawnRow = capturingPawn.color == .white ? move.end.row - 1 : move.end.row + 1
     board[capturedPawnRow][move.end.col] = nil

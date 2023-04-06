@@ -11,7 +11,6 @@ class Board {
   var board: [[Piece?]] = Array(repeating: Array(repeating: nil, count: 8), count: 8)
   var currentPlayer: Color = .white
   var gameOver: Bool = false
-  var typeOfPiece: Piece
   var passant: Position? = nil
   
   init() {
@@ -101,7 +100,7 @@ class Board {
     board[move.start.row][move.start.col] = nil
   }
   
-  private func isMoveValid(piece: Piece, move: Move) -> Bool {
+  func isMoveValid(piece: Piece, move: Move) -> Bool {
     let rowDiff = abs(move.end.row - move.start.row)
     let colDiff = abs(move.end.col - move.start.col)
     
@@ -148,7 +147,7 @@ class Board {
     }
   }
   
-  private func handleCastling(move: Move) {
+   func handleCastling(move: Move) {
     guard let king = board[move.start.row][move.start.col] else {
       print("No king found at the starting position.")
       return
@@ -172,7 +171,7 @@ class Board {
     board[move.start.row][rookStartCol] = nil
   }
   
-  private func handlePawnPromotion(move: Move) {
+   func handlePawnPromotion(move: Move) {
     guard let pawn = board[move.start.row][move.start.col] else {
       print("No pawn found at the starting position.")
       return
@@ -185,7 +184,7 @@ class Board {
     board[move.end.row][move.end.col] = promotedPiece
   }
   
-  private func handleEnPassant(move: Move) {
+   func handleEnPassant(move: Move) {
     guard let capturingPawn = board[move.start.row][move.start.col] else {
       print("No pawn found at the starting position.")
       return

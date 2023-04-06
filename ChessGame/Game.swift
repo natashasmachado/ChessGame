@@ -9,7 +9,6 @@ import Foundation
 
 class Game {
   let board: Board
-  let moving: Move
   
   init() {
     board = Board()

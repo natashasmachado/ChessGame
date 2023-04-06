@@ -10,5 +10,10 @@ import Foundation
 struct Move {
   let start: Position
   let end: Position
+  
+  init(start: Position, end: Position) {
+    self.start = start
+    self.end = end
+  }
 }
 

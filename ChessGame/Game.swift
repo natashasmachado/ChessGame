@@ -55,7 +55,52 @@ class Game {
         {
           print("Game over - \(currentPlayer.antiColor().rawValue) won by resignation")
           board.gameOver = true
-        }else {
+        }else if input == "moves" {
+            let letters = ["a", "b", "c", "d", "e", "f", "g", "h"]
+            var moves: [String] = []
+            for j in 0..<8 {
+                for k in 0..<8 {
+                    if let piece = board.board[j][k]{
+                        if piece.color == currentPlayer {
+                            var counter = 0
+                            var temp = "\(letters[k])\(j + 1) - {"
+                            for l in 0..<8 {
+                                for m in 0..<8 {
+                                    if board.isMoveValid(piece: piece, move: Move(start: Position(row: j, col: k), end: Position(row: l, col: m), player: currentPlayer)) {
+                                        if counter > 0 {
+                                            temp.append(", ")
+                                        }
+                                        temp.append("\(letters[l])\(m + 1)")
+                                        counter += 1
+                                    }
+                                }
+                            }
+                            temp.append("}")
+                            moves.append(temp)
+                        }
+                    }
+                }
+            }
+            for move in moves {
+                print(move)
+            }
+        } else if input.count == 2 {
+            let letters = ["a", "b", "c", "d", "e", "f", "g", "h"]
+            var temp = 0
+            for letter in 0..<letters.count {
+                if input.prefix(1) == letters[letter] {
+                    temp = letter
+                    break
+                }
+            }
+            
+            
+            
+            if let piece = board.board[Int(input.suffix(1))!][temp] {
+                print(getMoves(piece))
+            }
+        }
+          else {
           if let positions = parseInput(input) {
             let start = positions.start
             let end = positions.end
@@ -70,6 +115,25 @@ class Game {
     }
     board.display()
   }
+    
+    func getMoves(_ piece: Piece) -> String {
+        var counter = 0
+        let letters = ["a", "b", "c", "d", "e", "f", "g", "h"]
+        var temp = "\(letters[piece.position.0])\(piece.position.1 + 1) - {"
+        for l in 0..<8 {
+            for m in 0..<8 {
+                if board.isMoveValid(piece: piece, move: Move(start: Position(row: piece.position.0, col: piece.position.1), end: Position(row: l, col: m), player: currentPlayer)) {
+                    if counter > 0 {
+                        temp.append(", ")
+                    }
+                    temp.append("\(letters[l])\(m + 1)")
+                    counter += 1
+                }
+                    temp.append("}")
+            }
+        }
+        return temp
+    }
 }
 
 

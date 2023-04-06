@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		628FF08D29DEC2BD00FD68DC /* Move.swift in Sources */ = {isa = PBXBuildFile; fileRef = 628FF08C29DEC2BD00FD68DC /* Move.swift */; };
 		6E05F5D929DB51780053BEE5 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E05F5D829DB51780053BEE5 /* main.swift */; };
 		A188BA9529DCB89A002B3BC9 /* Piece.swift in Sources */ = {isa = PBXBuildFile; fileRef = A188BA9429DCB89A002B3BC9 /* Piece.swift */; };
 		A188BA9729DCBD26002B3BC9 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = A188BA9629DCBD26002B3BC9 /* Color.swift */; };
@@ -35,6 +36,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		628FF08C29DEC2BD00FD68DC /* Move.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Move.swift; sourceTree = "<group>"; };
 		6E05F5D529DB51780053BEE5 /* ChessGame */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = ChessGame; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E05F5D829DB51780053BEE5 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		A188BA9429DCB89A002B3BC9 /* Piece.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Piece.swift; sourceTree = "<group>"; };
@@ -89,6 +91,7 @@
 				A188BAA929DCD566002B3BC9 /* Game.swift */,
 				A188BAAB29DCEA20002B3BC9 /* Position.swift */,
 				A188BAAD29DCEE26002B3BC9 /* PieceType.swift */,
+				628FF08C29DEC2BD00FD68DC /* Move.swift */,
 			);
 			path = ChessGame;
 			sourceTree = "<group>";
@@ -164,6 +167,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				628FF08D29DEC2BD00FD68DC /* Move.swift in Sources */,
 				A188BAA229DCC7A7002B3BC9 /* Rook.swift in Sources */,
 				A188BA9529DCB89A002B3BC9 /* Piece.swift in Sources */,
 				A188BA9B29DCC3B6002B3BC9 /* Queen.swift in Sources */,

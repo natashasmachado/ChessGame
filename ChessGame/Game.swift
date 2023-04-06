@@ -26,32 +26,35 @@ class Game {
   // the function does not work correctly, i ll look tomorrow
   func start() {
     var i: Int = 1
-    board.display()
-    print("[type 'help' for help] \(board.currentPlayer.rawValue) (\(i)):")
-    if let input = readLine() {
-      let letter = input.components(separatedBy: [" "])
-      let piecePosition = input.split(separator: " ")
-      if input=="help"{
-        print(help())
-      }else if input=="board"
-      {
-        board.display()
-      }else if input=="resign"
-      {
-        print("Game over - \(board.currentPlayer.antiColor().rawValue) won by resignation")
-        board.gameOver = true
-      }else {
-        if piecePosition.count == 2 {
-          let start = String(piecePosition[0])
-          let end = String(piecePosition[1])
-        }else if piecePosition.count == 4 {
-          // We should handle this part
-         // board.movePiece(move)
-        }
+    while true{
+        print("[type 'help' for help] \(board.currentPlayer.rawValue) (\(i)):")
+        if let input = readLine() {
+          let letter = input.components(separatedBy: [" "])
+          let piecePosition = input.split(separator: " ")
+          if input=="help"{
+            print(help())
+          }else if input=="board"
+          {
+            board.display()
+          }else if input=="resign"
+          {
+            print("Game over - \(board.currentPlayer.antiColor().rawValue) won by resignation")
+            board.gameOver = true
+          }else {
+            if input.count == 2 {
+              let start = String(piecePosition[0])
+              let end = String(piecePosition[1])
+            }else if input.count == 4 {
+                print("Hi")
+              // We should handle this part
+             // board.movePiece(move)
+            }
+            
+          }
         
-      }
-    
+        }
     }
+    board.display()
   }
 }
 
